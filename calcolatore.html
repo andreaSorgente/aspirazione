@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Tubi</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      text-align: center;
+      background: #f2f2f2;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    input {
+      width: 85%;
+      padding: 12px;
+      margin: 6px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 40%;
+      padding: 12px;
+      margin: 10px 5px;
+      font-size: 16px;
+      background: #007AFF;
+      color: white;
+      border: none;
+      border-radius: 10px;
+    }
+
+    #risultato {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>Calcolatore Portata / Diametro</h2>
+
+<input id="v" placeholder="Velocità (m/s)">
+<input id="d" placeholder="Diametro (mm)">
+<input id="q" placeholder="Portata (m³/h)">
+
+<br>
+
+<button onclick="calcolaPortata()">Portata</button>
+<button onclick="calcolaDiametro()">Diametro</button>
+
+<div id="risultato"></div>
+
+<script>
+function calcolaPortata() {
+  let v = parseFloat(document.getElementById("v").value);
+  let d = parseFloat(document.getElementById("d").value) / 1000;
+
+  if (!v || !d) {
+    document.getElementById("risultato").innerText = "Inserisci valori validi";
+    return;
+  }
+
+  let q = v * Math.PI * (d*d) / 4 * 3600;
+  document.getElementById("risultato").innerText =
+    "Portata: " + q.toFixed(2) + " m³/h";
+}
+
+function calcolaDiametro() {
+  let v = parseFloat(document.getElementById("v").value);
+  let q = parseFloat(document.getElementById("q").value);
+
+  if (!v || !q) {
+    document.getElementById("risultato").innerText = "Inserisci valori validi";
+    return;
+  }
+
+  let d = Math.sqrt((q / 3600 * 4) / (v * Math.PI)) * 1000;
+
+  document.getElementById("risultato").innerText =
+    "Diametro: " + d.toFixed(2) + " mm";
+}
+</script>
+
+</body>
+</html>
